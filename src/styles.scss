@@ -1,0 +1,22 @@
+@import '../node_modules/primeflex/primeflex.scss';
+// @import '../node_modules/primereact/resources/themes/lara-light-teal/theme.css';
+@import '../node_modules/primereact/resources/primereact.min.css';
+@import '../node_modules/primeicons/primeicons.css';
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap');
+
+* {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, Roboto, 'Segoe UI', Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif
+}
+
+html,
+body {
+    background-color: var(--surface-ground);
+}
+
+a {
+    text-decoration: none;
+}
+
+.p-inputtext {
+    width: 100%;
+}

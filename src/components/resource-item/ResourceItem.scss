@@ -1,0 +1,25 @@
+.resource-item {
+
+    position: relative;
+
+    .p-card-content,
+    .p-card-footer {
+        padding: 0;
+    }
+
+    .remove-button {
+        position: absolute;
+        right: 0.5rem;
+        top: 1rem;
+        font-family: monospace !important;
+        font-size: 1.5rem;
+        line-height: 1.3rem;
+        opacity: 0;
+        transition: 500ms;
+        cursor: pointer;
+    }
+
+    &:hover .remove-button {
+        opacity: 1;
+    }
+}
