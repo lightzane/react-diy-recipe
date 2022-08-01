@@ -1,8 +1,8 @@
 import axios, { AxiosResponse } from 'axios';
 import { Recipe } from '../interfaces';
 
-const API = 'https://lightzane-db.herokuapp.com/react-diy-recipe-56781';
-const COLLECTION_RECIPE = `${API}-recipes`;
+const API = 'https://lightzane-db.herokuapp.com/react-diy-recipe-567822e';
+const COLLECTION_RECIPES = `${API}-recipes`;
 const COLLECTION_INVENTORY = `${API}-inventory`;
 const COLLECTION_RESOURCES = `${API}-resources`;
 
@@ -13,12 +13,16 @@ export class HttpService {
      * @returns the created recipe
      */
     static addRecipe(recipe: Recipe): Promise<AxiosResponse<Recipe>> {
-        return axios.post<Recipe>(COLLECTION_RECIPE, recipe);
+        return axios.post<Recipe>(COLLECTION_RECIPES, recipe);
+    }
+
+    static addRecipes(recipes: Recipe[]): Promise<AxiosResponse<Recipe[]>> {
+        return axios.post<Recipe[]>(COLLECTION_RECIPES, recipes);
     }
 
     /** Retrieve recipes from `Recipes` collection */
     static getAllRecipes(): Promise<AxiosResponse<Recipe[]>> {
-        return axios.get<Recipe[]>(COLLECTION_RECIPE);
+        return axios.get<Recipe[]>(COLLECTION_RECIPES);
     }
 
     /**
@@ -27,7 +31,7 @@ export class HttpService {
      * @returns the deleted recipe
      */
     static removeRecipe(_id: string): Promise<AxiosResponse<Recipe>> {
-        return axios.delete<Recipe>(`${COLLECTION_RECIPE}/${_id}`);
+        return axios.delete<Recipe>(`${COLLECTION_RECIPES}/${_id}`);
     }
 
     /**
@@ -69,6 +73,10 @@ export class HttpService {
      */
     static addResource(recipe: Recipe): Promise<AxiosResponse<Recipe>> {
         return axios.post<Recipe>(COLLECTION_RESOURCES, recipe);
+    }
+
+    static addResources(resources: Recipe[]): Promise<AxiosResponse<Recipe[]>> {
+        return axios.post<Recipe[]>(COLLECTION_RESOURCES, resources);
     }
 
     /**

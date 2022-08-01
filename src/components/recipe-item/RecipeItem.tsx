@@ -126,10 +126,13 @@ export const RecipeItem: React.FC<Props> = ({ recipe }) => {
                 globalCtx.updateResourceCapacity();
 
                 const challenge = challengeCtx.challenges.find(c => c.recipeId === data.recipeId);
-                challenge.progress += data.produceQuantity;
 
-                // update progress in challenges
-                challengeCtx.updateProgress(challenge);
+                if (challenge) {
+                    challenge.progress += data.produceQuantity;
+
+                    // update progress in challenges
+                    challengeCtx.updateProgress(challenge);
+                }
 
                 // toast may be undefined since Toast is only declared on this 'page' component
                 // it may be undefined when user quickly switch page

@@ -17,7 +17,7 @@ export const Challenges: React.FC = () => {
             <div className='grid justify-content-center'>
                 {
                     challenges.map(challenge => (
-                        <div key={challenge.id} className='col-12 md:col-5'>
+                        <div key={challenge.id} className='col-12 md:col-6 lg:col-4'>
                             <ChallengeItem challenge={challenge} />
                         </div>
                     ))

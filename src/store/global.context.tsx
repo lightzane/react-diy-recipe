@@ -1,12 +1,12 @@
 import React, { createContext, ReactNode, useRef, useState } from 'react';
 import { useEffect } from 'react';
 import { Toast } from 'primereact/toast';
-import { DATA_INITIAL_INVENTORY } from '../shared/data';
 import { Recipe } from '../shared/interfaces';
 import { HttpService } from '../shared/services/http.service';
 import { MAX_RESOURCE_CAPACITY, RawMaterialManager } from './RawMaterialManager';
 import { FavoriteProvider } from './favorite.context';
 import { ChallengesProvider } from './challenges.context';
+import { DATA_INITIAL_RESOURCES, DATA_INITIAL_RECIPES1, DATA_INITIAL_RECIPES2 } from '../shared/data';
 
 interface Props {
     children: ReactNode;
@@ -60,7 +60,7 @@ export const GlobalContext: React.Context<GlobalContextType> = createContext({
 export const GlobalProvider: React.FC<Props> = ({ children }) => {
 
     const [inventory, setInventory] = useState<Recipe[]>([]);
-    const [resources, setResources] = useState<Recipe[]>(DATA_INITIAL_INVENTORY);
+    const [resources, setResources] = useState<Recipe[]>([]);
     const [recipes, setRecipes] = useState<Recipe[]>([]);
     const [resourceCapacity, setResourceCapacity] = useState(0);
     const [isLoadingResources, setIsLoadingResources] = useState(true);
@@ -73,7 +73,7 @@ export const GlobalProvider: React.FC<Props> = ({ children }) => {
             toast.current.show({
                 summary: 'Storage for resources is full',
                 detail: 'Consume items to continue producing',
-                severity: 'info',
+                severity: 'warn',
                 sticky: true // disables auto close
             });
         }
@@ -87,7 +87,7 @@ export const GlobalProvider: React.FC<Props> = ({ children }) => {
         HttpService.getAllRecipes()
             .then(response => {
                 let data = response?.data;
-                if (data) {
+                if (data.length) {
                     data = data.filter(i => i.ingredients?.length || i.price);
                     setRecipes(current => current.concat(data));
                 }
@@ -97,10 +97,31 @@ export const GlobalProvider: React.FC<Props> = ({ children }) => {
         HttpService.getAllResources()
             .then(response => {
                 const data = response?.data;
-                if (data) {
+                if (data.length) {
                     setResources(current => current.concat(data));
+                    setIsLoadingResources(false);
+                } else {
+                    setIsLoadingResources(true);
+                    setIsLoadingRecipes(true);
+                    HttpService.addResources(DATA_INITIAL_RESOURCES)
+                        .then(response => {
+                            if (response.data.length) {
+                                setIsLoadingResources(true);
+                                setIsLoadingRecipes(true);
+                                HttpService.addRecipes(DATA_INITIAL_RECIPES1)
+                                    .then(response => {
+                                        setIsLoadingResources(true);
+                                        setIsLoadingRecipes(true);
+                                        if (response.data.length) {
+
+                                            HttpService.addRecipes(DATA_INITIAL_RECIPES2)
+                                                .then(() => { window.location.reload(); });
+                                        }
+                                    });
+                            }
+                        });
+
                 }
-                setIsLoadingResources(false);
             });
 
         HttpService.getAllInventory()

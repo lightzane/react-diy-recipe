@@ -23,6 +23,7 @@ export const ChallengeItem: React.FC<Props> = ({ challenge }) => {
                 </div>
                 <div className='col-9'>
                     <ProgressBar
+                        className='mx-3'
                         value={challenge.progress / challenge.goal * 100}
                         displayValueTemplate={displayValueTemplate}
                     />

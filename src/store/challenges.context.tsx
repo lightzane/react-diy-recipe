@@ -70,7 +70,7 @@ export const ChallengesProvider: React.FC<{ children: React.ReactNode; }> = ({ c
             nominateChance = Math.random();
         }
 
-        const goal = Math.floor(Math.random() * recipe.produceQuantity * 10 + recipe.produceQuantity);
+        const goal = Math.floor(Math.random() * recipe.produceQuantity * 3 + recipe.produceQuantity);
 
         const challenge: Challenge = {
             id: Date.now().toString().replace(/./g, () => Math.floor(Math.random() * 16).toString(16)),
@@ -81,8 +81,8 @@ export const ChallengesProvider: React.FC<{ children: React.ReactNode; }> = ({ c
             imageUrl: recipe.imageUrl
         };
 
-        // odds to 60%
-        if (nominateChance > 0.4 && challenges.length < MAX_CHALLENGES) {
+        // odds to 50%
+        if (nominateChance > 0.5 && challenges.length < MAX_CHALLENGES) {
             setChallenges(current => current.concat(challenge));
         }
     };
