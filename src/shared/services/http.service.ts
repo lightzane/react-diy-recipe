@@ -1,7 +1,7 @@
 import axios, { AxiosResponse } from 'axios';
 import { Recipe } from '../interfaces';
 
-const API = 'https://lightzane-db.herokuapp.com/react-diy-recipe-567822e';
+const API = 'https://lightzane-db.onrender.com/react-diy-recipe-567822e';
 const COLLECTION_RECIPES = `${API}-recipes`;
 const COLLECTION_INVENTORY = `${API}-inventory`;
 const COLLECTION_RESOURCES = `${API}-resources`;
